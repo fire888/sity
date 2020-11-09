@@ -2,9 +2,6 @@ import * as THREE from 'three'
 
 import { playerConfig } from './constants_elements'
 
-//import { createComponentCollisionFloors } from './component_collisionFloor'
-import { createComponentCollisionWalls } from './component_collisionWalls'
-import { createCheckerNearItem } from './component_checkNearItem'
 
 
 
@@ -19,10 +16,6 @@ export function createPlayer (emitterLink) {
         lightDataOne,
         lightDataTwo,
         speed,
-        offsetFromFloor,
-        offsetFromFloorFactor,
-        speedDown,
-        offsetWallCollision,
         speedRot,
     } = playerConfig
 
@@ -61,21 +54,14 @@ export function createPlayer (emitterLink) {
       mainObj.add(light)
     }
 
-    //const checkFloors = createComponentCollisionFloors(mainObj, offsetFromFloor, offsetFromFloorFactor, speedDown)
-    const checkWalls = createComponentCollisionWalls(mainObj, frontObj, offsetWallCollision)
-    const checkNearItem = createCheckerNearItem(mainObj, emitter) 
-
     const update = data => {
         if (isButtonsDisabled) return;
-        //checkFloors.check(data)
 
         if (!keys) return;
 
         if (keys['up']) {
-            if (checkWalls.check()) return;
 
             mainObj.translateZ(-speed * data.count)
-            checkNearItem()
         }
         keys['left'] && (mainObj.rotation.y += (speedRot * data.count))
         keys['right'] && (mainObj.rotation.y -= (speedRot * data.count))
