@@ -5,7 +5,7 @@ const MIN_W = 350
 
 export function createDeviceResizer () {
     const appWrapper = document.querySelector('.app-wrapper')
-    const fullScreenButton = document.querySelector('#butt-fullscreen')
+    const fullScreenButton = document.querySelector('.butt-fullscreen')
 
     /** fullscreen */
     const openAppFullScreenIfMobile = () => {    
@@ -27,7 +27,7 @@ export function createDeviceResizer () {
     const resize = e => {
         appWrapper.style.width = window.innerWidth + 'px'
         appWrapper.style.height = window.innerHeight + 'px'
-        appWrapper.style.fontSize = Math.max(Math.min(Math.min(window.innerWidth, window.innerHeight), MAX_W), MIN_W) / 50 + 'px'
+        appWrapper.style.fontSize = Math.max(Math.min(Math.min(window.innerWidth, window.innerHeight), MAX_W), MIN_W) / 25 + 'px'
 
         fullScreenButton.style.display = document.fullscreenElement ? "none" : "flex"
     }

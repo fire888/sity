@@ -1,5 +1,5 @@
-//import { createDeviceResizer } from './util_deviceResizer'
-//import { KeyBoard } from './util_keyBoard'
+import { createDeviceResizer } from './util_deviceResizer'
+import { KeyBoard } from './util_keyBoard'
 import { createEmitter } from './util_emitter'
 import { createFrameUpdater } from './util_frameUpater'
 
@@ -9,7 +9,6 @@ import { loadAssets } from './utils_loadAssets'
 
 import { createStudio } from './createStudio'
 import { createPlayer } from './createPlayer'
-//import { createTopView } from './topCameraView'
 
 import { showStartButton } from './systemHtml_intro'
 import { createTown } from './sityTown'
@@ -24,6 +23,7 @@ import { createTown } from './sityTown'
 const init = assets => {
     const emitter = createEmitter()
     createFrameUpdater(emitter)
+    createDeviceResizer()
 
     const studio = createStudio(emitter, assets)
     const t = createTown(assets['sity'].scene)
@@ -31,13 +31,10 @@ const init = assets => {
     studio.addToScene(t)
 
     /** player */
-   // new KeyBoard(emitter)
+    new KeyBoard(emitter)
     const player = createPlayer(emitter)
-    //studio.setCamera(player.getCamera())
+    studio.setPlayerCamera(player.getCamera())
     studio.addToScene(player.getObj())
-    //const topView = createTopView()
-    //studio.setCamera(topView.getCamera())
-    //studio.addToScene(topView.getObj())
 
     showStartButton(emitter)
 }

@@ -2,7 +2,7 @@ import * as THREE from 'three'
 
 export const createTown = model => {
     const d = 9.99
-    const c = 50
+    const c = 5
 
     const group = new THREE.Group()
     for (let i = 0; i < c; i++) {

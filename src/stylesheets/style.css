@@ -141,120 +141,59 @@
 
 /*****************************************/
 
-.ui button {
-    display: flex;
+.control {
+    display: block;
+    position: absolute;
+    z-index: 100;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     align-content: center;
-    font-size: 2.2em;
+    font-size: 1.2em;
     transition: 0.2s;  
     color: #c4e2ff; 
     border: 1px solid #c1e1ff; 
-    height: 2em;
-    width: 30vw;
     overflow: hidden;
     border-radius: 5px; 
     background: #004ba193;
     cursor: pointer;
     max-width: 360px;
-}
-
-
-#dialog-button-toggle {
-    height: 3.1em;
-    border-radius: 40px;
-}
-
-
-.ui button.control {
-    flex: 0 0 3.1em;
-    height: 3.1em;
-    width: 3.1em;
-    border-radius: 2.8em;
+    height: 3em;
+    width: 3em;
+    border-radius: 2.5em;
     margin: 0.2em;
 }
 
-.ui #replicies button {
-    width: 100%;
-    margin: 1px;
-}
 
-
-.ui button:hover {
+button.control:hover {
     background:#7dc0ff; 
     color: #001950;
     border-color:  #001950;
     cursor: pointer;
 }
 
-
-/****************************************************/
-
-#bridge-params {
-    position: absolute; 
-    top: 40px; 
-    left: 10px; 
-    background: #ffffff55;
+.control.butt-left {
+    bottom: 1em;
+    left: 1em; 
 }
 
-#bridge-params span {
-    display: inline-block;
-    width: 100px;
+.control.butt-right {
+    bottom: 1em;
+    left: 5em; 
 }
 
-#bridge-params input {
-    width: 300px;
+.control.butt-front {
+    bottom: 1em;
+    right: 1em; 
 }
 
-
-/****************************************************/
-
-
-.info-cont {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+.control.butt-fullscreen {
+    top: 1em;
+    right: 1em; 
 }
 
-
-.info-wrap {
-    color: white;
-    position: relative;
-    width: 90vw;
-    max-width: 800px;
-    background: rgba(69, 10, 77, 0.733);
-    padding: 4em;
+.control.butt-camera {
+    right: 5em;
+    top: 1em;
 }
 
-.info-wrap div{
-    margin: 2.7em 0;
-    font-size: 2.2em;
-}
-
-.info-wrap a{
-    color: rgb(84, 233, 103);
-}
-
-.info-wrap button{
-    position: absolute;
-    right: 3px;
-    top: 3px;
-    font-size: 2.8em;
-    transition: 0.2s;  
-    color: #c4e2ff; 
-    border: 1px solid #c1e1ff; 
-    height: 2.2em;
-    width: 2.2em;
-    overflow: hidden;
-    border-radius: 5px; 
-    background: #004ba193;
-    cursor: pointer;
-    max-width: 360px;
-}

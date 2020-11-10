@@ -34,7 +34,6 @@ export const showStartButton = emitter => {
     const hideStartScreen = e => {
         emitter.emit('setLanguage')(e.target.dataset.lang)
         document.querySelector('.start-screen').style.display = 'none'
-        
     }
 
     isAnimateLoader = false

@@ -71,5 +71,21 @@ export function KeyBoard (eventEmitter) {
       function() { keyUpdate( 38, true ) })
     buttUp.addEventListener('touchend', 
       function() { keyUpdate( 38, false ) })
+
+
+    const arr = [buttLeft, buttRight, buttUp]
+    let toggle = false
+    const clickCam = () => {
+        eventEmitter.emit('clickCam')() 
+        toggle = !toggle
+        toggle 
+          ? arr.forEach(item => item.classList.remove('hidden'))
+          : arr.forEach(item => item.classList.add('hidden'))
+    } 
+    const buttSwitchCam = document.querySelector('.butt-camera')
+    buttSwitchCam.addEventListener('mouseup', clickCam)
+    buttSwitchCam.addEventListener('touchstart', clickCam)
+
+    eventEmitter.subscribe('setLanguage')(() => buttSwitchCam.classList.remove('hidden'))
 }
 

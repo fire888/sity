@@ -15,11 +15,16 @@ export function createStudio (emitter, assets) {
     renderer.setPixelRatio(window.devicePixelRatio)
     renderer.setSize(window.innerWidth, window.innerHeight)
 
-    const camera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, .5, 10000)
-    camera.position.set(0, 5, 5)
-    camera.lookAt(new THREE.Vector3(5, 0, 0))
-    const controls = new OrbitControls(camera, renderer.domElement);
+    let camera
+    
+    const topCamera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, .5, 10000)
+    topCamera.position.set(0, 5, 5)
+    topCamera.lookAt(new THREE.Vector3(5, 0, 0))
+    const controls = new OrbitControls(topCamera, renderer.domElement);
     controls.target.set(8, 0, 0)
+    camera = topCamera
+
+    let playerCamera
 
     const scene = new THREE.Scene()
     scene.background = assets.skyBox
@@ -55,8 +60,15 @@ export function createStudio (emitter, assets) {
     }
     emitter.subscribe('frameUpdate')(drawFrame)
 
+    let toggleCam = false
+    emitter.subscribe('clickCam')(() => {
+        toggleCam = !toggleCam
+        camera = toggleCam ? playerCamera : topCamera 
+    })
+
+
     return {
-        setCamera: cam => camera = cam,
+        setPlayerCamera: cam => playerCamera = cam,
         addToScene,
     }
 }
