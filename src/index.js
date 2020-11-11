@@ -14,9 +14,9 @@ import { showStartButton } from './systemHtml_intro'
 import { createTown } from './sityTown'
 
 
-
-
-//createDeviceResizer()
+// https://threejs.org/examples/#webgl_shadowmap_pcss
+// https://threejs.org/examples/#webgl_lights_hemisphere
+// https://threejs.org/examples/?q=shadow#webgl_materials_lightmap
 
 
 
@@ -26,9 +26,8 @@ const init = assets => {
     createDeviceResizer()
 
     const studio = createStudio(emitter, assets)
-    const t = createTown(assets['sity'].scene)
-    //studio.addToScene(assets['sity'].scene)
-    studio.addToScene(t)
+    const town = createTown(assets['sity'].scene)
+    studio.addToScene(town)
 
     /** player */
     new KeyBoard(emitter)
@@ -41,7 +40,5 @@ const init = assets => {
 
 
 
-window.addEventListener('load', () => 
-    loadAssets(ASSETS_TO_LOAD)
-        .then(init))
+window.addEventListener('load', () => loadAssets(ASSETS_TO_LOAD).then(init))
 

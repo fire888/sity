@@ -84,7 +84,6 @@ export function KeyBoard (eventEmitter) {
     } 
     const buttSwitchCam = document.querySelector('.butt-camera')
     buttSwitchCam.addEventListener('mouseup', clickCam)
-    buttSwitchCam.addEventListener('touchstart', clickCam)
 
     eventEmitter.subscribe('setLanguage')(() => buttSwitchCam.classList.remove('hidden'))
 }

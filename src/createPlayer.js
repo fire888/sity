@@ -42,16 +42,16 @@ export function createPlayer (emitterLink) {
 
     {
         const { color, strenth, pos } = lightDataOne
-        const light = new THREE.PointLight(color, strenth)
-        light.position.fromArray(pos)
-        mainObj.add(light)
+        //const light = new THREE.PointLight(color, strenth)
+        //light.position.fromArray(pos)
+        //mainObj.add(light)
     }
 
     {
       const { color, strenth, pos } = lightDataTwo
-      const light = new THREE.PointLight(color, strenth)
-      light.position.fromArray(pos)
-      mainObj.add(light)
+      //const light = new THREE.PointLight(color, strenth)
+      //light.position.fromArray(pos)
+      //mainObj.add(light)
     }
 
     const update = data => {
