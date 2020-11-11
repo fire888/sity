@@ -1,29 +1,27 @@
 import * as THREE from 'three'
 import { studioConfig } from './constants_elements'
 import { MapControls } from "three/examples/jsm/controls/OrbitControls"
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
 
 
 
 export function createStudio (emitter, assets) {
     const { canId, rendererCon, clearColor, fogData, amb } = studioConfig
 
+
     const canvas = document.getElementById(canId)
     rendererCon.canvas = canvas
 
-    const renderer = new THREE.WebGLRenderer(rendererCon)
-    renderer.setClearColor(clearColor)
-    renderer.setPixelRatio(window.devicePixelRatio)
-    renderer.setSize(window.innerWidth, window.innerHeight)
 
     let camera
     
     const topCamera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, .5, 10000)
-    topCamera.position.set(0, 7, 5)
-    topCamera.lookAt(new THREE.Vector3(5, 0, 0))
-    const controls = new MapControls(topCamera, renderer.domElement);
-    controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-    controls.dampingFactor = 0.05;
-    controls.target.set(8, 0, 0)
+    topCamera.position.set(0, 8, 4)
+    topCamera.lookAt(new THREE.Vector3(4, 0, 0))
     camera = topCamera
 
     let playerCamera
@@ -31,41 +29,48 @@ export function createStudio (emitter, assets) {
     const scene = new THREE.Scene()
     //scene.background = assets.skyBox
 
-    const hemiLight = new THREE.HemisphereLight( 0xffffff, 0xffffff, 0.4 );
-    hemiLight.color.setHSL( 0.6, 1, 0.6 );
-    hemiLight.groundColor.setHSL( 0.095, 1, 0.75 );
-    hemiLight.position.set( 0, 50, 0 );
-    scene.add( hemiLight );
-
-    {
-        const { color, strength } = fogData
-        //scene.fog = new THREE.FogExp2(color, strength)
-        scene.fog = new THREE.Fog( 0xcce0ff, 5, 100 );
-    }
+    scene.fog = new THREE.Fog( 0x3a939e, 5, 100 );
+    scene.add( new THREE.AmbientLight( 0xffce6e, 0.3 ) );
+    
+    const light = new THREE.DirectionalLight( 0xdfebff, 1.35 );
+    light.position.set( -5, 15, 10 );
+    scene.add(light)
 
 
-    {
-        const { color, strength } = amb
-        //let lightA = new THREE.AmbientLight( color, strength )
-        //scene.add( lightA )
-        scene.add( new THREE.AmbientLight( 0x666666 ) );
-    }
 
-
+    const renderer = new THREE.WebGLRenderer(rendererCon)
+    renderer.setClearColor(clearColor)
+    renderer.setPixelRatio(window.devicePixelRatio)
+    renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setClearColor( scene.fog.color );
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.shadowMap.enabled = true;
 
-    const light = new THREE.DirectionalLight( 0xdfebff, 1.75 );
-    light.position.set( -5, 15, 10 );
-    scene.add(light)
-
-    light.castShadow = true;
-    light.shadow.mapSize.width = 1024;
-    light.shadow.mapSize.height = 1024;
-    light.shadow.camera.far = 80;
 
 
+    const renderPass = new RenderPass( scene, camera );
+    const fxaaPass = new ShaderPass( FXAAShader );
+    const pixelRatio = renderer.getPixelRatio();
+    fxaaPass.material.uniforms[ 'resolution' ].value.x = 1 / ( window.innerWidth * pixelRatio );
+    fxaaPass.material.uniforms[ 'resolution' ].value.y = 1 / ( window.innerHeight * pixelRatio );
+    const bokehPass = new BokehPass( scene, camera, {
+        focus: 10.0,
+        aperture: 0.001,
+        maxblur: 0.0025,
+        width: window.innerWidth,
+        height: window.innerHeight,
+    } );
+
+    const composer = new EffectComposer( renderer );
+    composer.addPass( renderPass );
+    //composer.addPass( bokehPass );
+    //composer.addPass( fxaaPass );
+
+
+    const controls = new MapControls(topCamera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    controls.target.set(8, 0, 0)
 
 
     const resize = () => {
@@ -84,6 +89,7 @@ export function createStudio (emitter, assets) {
 
     const drawFrame = () => {
         renderer.render(scene, camera)
+        //composer.render( 0.1 );
         controls.update()
     }
     emitter.subscribe('frameUpdate')(drawFrame)
@@ -91,7 +97,16 @@ export function createStudio (emitter, assets) {
     let toggleCam = false
     emitter.subscribe('clickCam')(() => {
         toggleCam = !toggleCam
-        camera = toggleCam ? playerCamera : topCamera 
+        if (toggleCam) { 
+            camera = playerCamera
+            scene.fog = new THREE.Fog( 0x96c0ff, 3, 20 );
+        } else { 
+            camera = topCamera 
+            scene.fog = new THREE.Fog( 0x3a939e, 5, 100 );
+        }
+        bokehPass.camera = camera
+        renderPass.camera = camera
+        renderer.setClearColor( scene.fog.color )
     })
 
 
