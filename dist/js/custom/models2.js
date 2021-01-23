@@ -88,15 +88,15 @@ function load_houses(model) {
 
                     });
 
-                    // object.name = model.name;
-                    // //scene.add(object);
-                    // object.scale.set(15, 15, 15);
-                    // object.position.x = 0;
-                    // object.position.z = 0;
-                    // object.rotation.y = 0;
-                    // //object.position.y = 300;
-                    // object.castShadow = false;
-                    // object.receiveShadow = false;
+                    object.name = model.name;
+                    //scene.add(object);
+                    object.scale.set(15, 15, 15);
+                    object.position.x = 0;
+                    object.position.z = 0;
+                    object.rotation.y = 0;
+                    //object.position.y = 300;
+                    object.castShadow = false;
+                    object.receiveShadow = false;
                     console.log('Loaded model:', model.name);
 
 
@@ -136,8 +136,8 @@ function load_model_positioned(model) {
 
 
 
-                    //object.castShadow = true;
-                    //object.receiveShadow = true;
+                    object.castShadow = true;
+                    object.receiveShadow = true;
                     console.log('Loaded model:', model.name);
                     console.log('Removing a plane', model.plane);
                     remove_model(model.plane);
@@ -153,19 +153,7 @@ function load_mash_positioned(model) {
     const mashes = model.clone();
     scene.add(mashes);
     console.log('Scene:', scene);
-    return mashes
 }
-
-
-
-
-
-// setTimeout(() => {
-//     console.log('!!!!!!', sceneObjects)
-//     console.log(sceneObjects[0].material === sceneObjects[1].material)
-//     console.log(sceneObjects[0].geometry === sceneObjects[1].geometry)
-//     console.log(sceneObjects[0] === sceneObjects[1])
-// }, 5000)
 
 
 //Function to remove models by name
@@ -262,20 +250,20 @@ function init(){
     controls.maxPolarAngle = THREE.Math.degToRad(70);
     controls.minDistance = 350;
     controls.maxDistance = 1000;
-    //controls.autoRotate = true;
-    //controls.autoRotateSpeed = 1;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1;
     controls.target.set( 500, 100, 600 );
     controls.update();
 
 
     //Raycaster
-    //raycaster = new THREE.Raycaster();
-    //renderer.domElement.addEventListener( 'click', raycast, false );
-    //renderer.domElement.addEventListener( 'touchend', onDocumentTouchEnd, false );
+    raycaster = new THREE.Raycaster();
+    renderer.domElement.addEventListener( 'click', raycast, false );
+    renderer.domElement.addEventListener( 'touchend', onDocumentTouchEnd, false );
 
-    //document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-    //document.addEventListener( 'touchmove', onDocumentTouchMove, false );
-    //window.addEventListener( 'resize', onWindowResize, false );
+    document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+    document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+    window.addEventListener( 'resize', onWindowResize, false );
 
 
     manager.onLoad = function ( ) {
@@ -287,7 +275,7 @@ function init(){
         $('#loading_status').hide();
 
         console.log('Scene:', scene);
-        //onWindowResize();
+        onWindowResize();
 
         console.log('Mashes:', mash);
 
@@ -313,20 +301,20 @@ function init(){
 
 
 
-// function onWindowResize() {
-//
-//     camera.aspect = window.innerWidth / window.innerHeight;
-//     camera.updateProjectionMatrix();
-//     //raycaster.setFromCamera( mouse, camera );
-//     renderer.setSize( window.innerWidth, window.innerHeight );
-//
-// }
+function onWindowResize() {
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    raycaster.setFromCamera( mouse, camera );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
+}
 
 function animate() {
 
     requestAnimationFrame( animate );
 
-    //raycaster.setFromCamera( mouse, camera );
+    raycaster.setFromCamera( mouse, camera );
 
     renderer.render( scene, camera );
 
@@ -336,379 +324,379 @@ function animate() {
 }
 
 
-// function raycast ( e ) {
-//     mouse.x = ( e.clientX / window.innerWidth ) * 2 - 1;
-//     mouse.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
-//     raycaster.setFromCamera( mouse, camera );
-//     var intersects = raycaster.intersectObjects( scene.children, true );
-//
-//     for ( var i = 0; i < intersects.length; i++ ) {
-//
-//         if (intersects[ i ].object.name !== "") {
-//             let name = intersects[ i ].object.name.split('_');
-//
-//             if (name[0] === 'tobuild') {
-//                 console.log(name, intersects[i].object);
-//                 $('.menu-builder').attr('data-plane', intersects[i].object.name);
-//
-//                 intersects[i].object.geometry.computeBoundingBox();
-//
-//                 var boundingBox = intersects[i].object.geometry.boundingBox;
-//
-//                 var position = new THREE.Vector3();
-//                 position.subVectors(boundingBox.max, boundingBox.min);
-//                 //position.multiplyScalar( 1.5 );
-//                 position.add(boundingBox.min);
-//
-//                 position.applyMatrix4(intersects[i].object.matrixWorld);
-//
-//                 //alert(position.x + ',' + position.y + ',' + position.z);
-//
-//
-//                 $('.menu-builder').attr('data-x', position.x);
-//                 $('.menu-builder').attr('data-y', position.y);
-//                 $('.menu-builder').attr('data-z', position.z);
-//
-//
-//                 if (_.size(items.basic) !== 0) {
-//                     $('#table-builder-living tr').remove();
-//                     $('#table-builder-business tr').remove();
-//                     $('#table-builder-other tr').remove();
-//                     $('#table-builder-special tr').remove();
-//
-//
-//                     _.forEach(items.basic, function (value, key) {
-//                         switch (value.category) {
-//                             case ('living') : {
-//                                 $('#table-builder-living').append('<tr class="' + value.category + '">\n' +
-//                                     '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                     '<td><span>' + value.topic + '</span><br>\n' +
-//                                     '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                     '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                     '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                     '</td>\n' +
-//                                     '</tr>');
-//                                 break;
-//                             }
-//                             case ('business') : {
-//                                 $('#table-builder-business').append('<tr class="' + value.category + '">\n' +
-//                                     '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                     '<td><span>' + value.topic + '</span><br>\n' +
-//                                     '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                     '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                     '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                     '</td>\n' +
-//                                     '</tr>');
-//                                 break;
-//                             }
-//                             case ('airport') : {
-//                                 if (name[1] === 'airport') {
-//                                     $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
-//                                         '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                         '<td><span>' + value.topic + '</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                         '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                         '</td>\n' +
-//                                         '</tr>');
-//                                 }
-//                                 break;
-//                             }
-//                             case ('sea') : {
-//                                 if (name[1] === 'sea') {
-//                                     $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
-//                                         '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                         '<td><span>' + value.topic + '</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                         '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                         '</td>\n' +
-//                                         '</tr>');
-//                                 }
-//                                 break;
-//                             }
-//                             case ('factory') : {
-//                                 if (name[1] === 'factory') {
-//                                     $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
-//                                         '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                         '<td><span>' + value.topic + '</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                         '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                         '</td>\n' +
-//                                         '</tr>');
-//                                 }
-//                                 break;
-//                             }
-//                             case ('railway') : {
-//                                 if (name[1] === 'railway') {
-//                                     $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
-//                                         '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                         '<td><span>' + value.topic + '</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                         '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                         '</td>\n' +
-//                                         '</tr>');
-//                                 }
-//                                 break;
-//                             }
-//                             default : {
-//                                 $('#table-builder-other').append('<tr class="' + value.category + '">\n' +
-//                                     '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                     '<td><span>' + value.topic + '</span><br>\n' +
-//                                     '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                     '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                     '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                     '</td>\n' +
-//                                     '</tr>');
-//                                 break;
-//                             }
-//                         }
-//                     })
-//                 }
-//
-//
-//                 if (name[1] === 'airport') {
-//                     $(".tab-living").hide();
-//                     $(".tab-business").hide();
-//                     $(".tab-other").hide();
-//                     $(".tab-special").show();
-//                     $('.tab-special a').click();
-//                 } else if (name[1] === 'sea') {
-//                     $(".tab-living").hide();
-//                     $(".tab-business").hide();
-//                     $(".tab-other").hide();
-//                     $(".tab-special").show();
-//                     $('.tab-special a').click();
-//                 } else if (name[1] === 'factory') {
-//                     $(".tab-living").hide();
-//                     $(".tab-business").hide();
-//                     $(".tab-other").hide();
-//                     $(".tab-special").show();
-//                     $('.tab-special a').click();
-//                 } else if (name[1] === 'railway') {
-//                     $(".tab-living").hide();
-//                     $(".tab-business").hide();
-//                     $(".tab-other").hide();
-//                     $(".tab-special").show();
-//                     $('.tab-special a').click();
-//                 } else {
-//                     $(".tab-living").show();
-//                     $(".tab-business").show();
-//                     $(".tab-other").show();
-//                     $(".tab-special").hide();
-//                     $('.tab-living a').click();
-//                 }
-//
-//                 $('.menu-builder').modal('show');
-//
-//             }
-//         }
-//
-//     }
-//
-// }
+function raycast ( e ) {
+    mouse.x = ( e.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( e.clientY / window.innerHeight ) * 2 + 1;
+    raycaster.setFromCamera( mouse, camera );
+    var intersects = raycaster.intersectObjects( scene.children, true );
 
-// function onDocumentTouchEnd ( e ) {
-//     event = e.changedTouches[0];
-//     var rect = renderer.domElement.getBoundingClientRect();
-//     mouse.x = ( ( event.clientX - rect.left) / rect.width) * 2 - 1;
-//     mouse.y = - ( ( event.clientY - rect.top) / rect.height) * 2 + 1;
-//     raycaster.setFromCamera( mouse, camera );
-//     var intersects = raycaster.intersectObjects( scene.children, true );
-//
-//     for ( var i = 0; i < intersects.length; i++ ) {
-//
-//         if (intersects[ i ].object.name !== "") {
-//             let name = intersects[ i ].object.name.split('_');
-//
-//             if (name[0] === 'tobuild') {
-//                 console.log(name, intersects[i].object);
-//                 $('.menu-builder').attr('data-plane', intersects[i].object.name);
-//                 intersects[i].object.geometry.computeBoundingBox();
-//
-//                 var boundingBox = intersects[i].object.geometry.boundingBox;
-//
-//                 var position = new THREE.Vector3();
-//                 position.subVectors(boundingBox.max, boundingBox.min);
-//                 //position.multiplyScalar( 1.5 );
-//                 position.add(boundingBox.min);
-//
-//                 position.applyMatrix4(intersects[i].object.matrixWorld);
-//
-//                 //alert(position.x + ',' + position.y + ',' + position.z);
-//
-//
-//                 $('.menu-builder').attr('data-x', position.x);
-//                 $('.menu-builder').attr('data-y', position.y);
-//                 $('.menu-builder').attr('data-z', position.z);
-//
-//
-//                 if (_.size(items.basic) !== 0) {
-//                     $('#table-builder-living tr').remove();
-//                     $('#table-builder-business tr').remove();
-//                     $('#table-builder-other tr').remove();
-//                     $('#table-builder-special tr').remove();
-//
-//
-//                     _.forEach(items.basic, function (value, key) {
-//                         switch (value.category) {
-//                             case ('living') : {
-//                                 $('#table-builder-living').append('<tr class="' + value.category + '">\n' +
-//                                     '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                     '<td><span>' + value.topic + '</span><br>\n' +
-//                                     '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                     '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                     '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                     '</td>\n' +
-//                                     '</tr>');
-//                                 break;
-//                             }
-//                             case ('business') : {
-//                                 $('#table-builder-business').append('<tr class="' + value.category + '">\n' +
-//                                     '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                     '<td><span>' + value.topic + '</span><br>\n' +
-//                                     '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                     '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                     '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                     '</td>\n' +
-//                                     '</tr>');
-//                                 break;
-//                             }
-//                             case ('airport') : {
-//                                 if (name[1] === 'airport') {
-//                                     $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
-//                                         '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                         '<td><span>' + value.topic + '</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                         '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                         '</td>\n' +
-//                                         '</tr>');
-//                                 }
-//                                 break;
-//                             }
-//                             case ('sea') : {
-//                                 if (name[1] === 'sea') {
-//                                     $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
-//                                         '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                         '<td><span>' + value.topic + '</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                         '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                         '</td>\n' +
-//                                         '</tr>');
-//                                 }
-//                                 break;
-//                             }
-//                             case ('factory') : {
-//                                 if (name[1] === 'factory') {
-//                                     $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
-//                                         '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                         '<td><span>' + value.topic + '</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                         '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                         '</td>\n' +
-//                                         '</tr>');
-//                                 }
-//                                 break;
-//                             }
-//                             case ('railway') : {
-//                                 if (name[1] === 'railway') {
-//                                     $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
-//                                         '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                         '<td><span>' + value.topic + '</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                         '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                         '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                         '</td>\n' +
-//                                         '</tr>');
-//                                 }
-//                                 break;
-//                             }
-//                             default : {
-//                                 $('#table-builder-other').append('<tr class="' + value.category + '">\n' +
-//                                     '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
-//                                     '<td><span>' + value.topic + '</span><br>\n' +
-//                                     '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
-//                                     '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
-//                                     '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
-//                                     '</td>\n' +
-//                                     '</tr>');
-//                                 break;
-//                             }
-//                         }
-//                     })
-//                 }
-//
-//
-//                 if (name[1] === 'airport') {
-//                     $(".tab-living").hide();
-//                     $(".tab-business").hide();
-//                     $(".tab-other").hide();
-//                     $(".tab-special").show();
-//                     $('.tab-special a').click();
-//                 } else if (name[1] === 'sea') {
-//                     $(".tab-living").hide();
-//                     $(".tab-business").hide();
-//                     $(".tab-other").hide();
-//                     $(".tab-special").show();
-//                     $('.tab-special a').click();
-//                 } else if (name[1] === 'factory') {
-//                     $(".tab-living").hide();
-//                     $(".tab-business").hide();
-//                     $(".tab-other").hide();
-//                     $(".tab-special").show();
-//                     $('.tab-special a').click();
-//                 } else if (name[1] === 'railway') {
-//                     $(".tab-living").hide();
-//                     $(".tab-business").hide();
-//                     $(".tab-other").hide();
-//                     $(".tab-special").show();
-//                     $('.tab-special a').click();
-//                 } else {
-//                     $(".tab-living").show();
-//                     $(".tab-business").show();
-//                     $(".tab-other").show();
-//                     $(".tab-special").hide();
-//                     $('.tab-living a').click();
-//                 }
-//
-//                 $('.menu-builder').modal('show');
-//
-//             }
-//         }
-//
-//     }
-//
-// }
+    for ( var i = 0; i < intersects.length; i++ ) {
+
+        if (intersects[ i ].object.name !== "") {
+            let name = intersects[ i ].object.name.split('_');
+
+            if (name[0] === 'tobuild') {
+                console.log(name, intersects[i].object);
+                $('.menu-builder').attr('data-plane', intersects[i].object.name);
+
+                intersects[i].object.geometry.computeBoundingBox();
+
+                var boundingBox = intersects[i].object.geometry.boundingBox;
+
+                var position = new THREE.Vector3();
+                position.subVectors(boundingBox.max, boundingBox.min);
+                //position.multiplyScalar( 1.5 );
+                position.add(boundingBox.min);
+
+                position.applyMatrix4(intersects[i].object.matrixWorld);
+
+                //alert(position.x + ',' + position.y + ',' + position.z);
 
 
+                $('.menu-builder').attr('data-x', position.x);
+                $('.menu-builder').attr('data-y', position.y);
+                $('.menu-builder').attr('data-z', position.z);
 
-// function onDocumentMouseMove( event ) {
-//
-//     event.preventDefault();
-//
-//     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-//     mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-//     raycaster.setFromCamera( mouse, camera );
-//
-// }
 
-// function onDocumentTouchMove( event ) {
-//
-//     event.preventDefault();
-//
-//     event = event.changedTouches[0];
-//     var rect = renderer.domElement.getBoundingClientRect();
-//     mouse.x = ( ( event.clientX - rect.left) / rect.width) * 2 - 1;
-//     mouse.y = - ( ( event.clientY - rect.top) / rect.height) * 2 + 1;
-//
-//     raycaster.setFromCamera( mouse, camera );
-//
-// }
+                if (_.size(items.basic) !== 0) {
+                    $('#table-builder-living tr').remove();
+                    $('#table-builder-business tr').remove();
+                    $('#table-builder-other tr').remove();
+                    $('#table-builder-special tr').remove();
+
+
+                    _.forEach(items.basic, function (value, key) {
+                        switch (value.category) {
+                            case ('living') : {
+                                $('#table-builder-living').append('<tr class="' + value.category + '">\n' +
+                                    '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                    '<td><span>' + value.topic + '</span><br>\n' +
+                                    '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                    '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                    '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                    '</td>\n' +
+                                    '</tr>');
+                                break;
+                            }
+                            case ('business') : {
+                                $('#table-builder-business').append('<tr class="' + value.category + '">\n' +
+                                    '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                    '<td><span>' + value.topic + '</span><br>\n' +
+                                    '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                    '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                    '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                    '</td>\n' +
+                                    '</tr>');
+                                break;
+                            }
+                            case ('airport') : {
+                                if (name[1] === 'airport') {
+                                    $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
+                                        '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                        '<td><span>' + value.topic + '</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                        '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                        '</td>\n' +
+                                        '</tr>');
+                                }
+                                break;
+                            }
+                            case ('sea') : {
+                                if (name[1] === 'sea') {
+                                    $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
+                                        '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                        '<td><span>' + value.topic + '</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                        '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                        '</td>\n' +
+                                        '</tr>');
+                                }
+                                break;
+                            }
+                            case ('factory') : {
+                                if (name[1] === 'factory') {
+                                    $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
+                                        '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                        '<td><span>' + value.topic + '</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                        '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                        '</td>\n' +
+                                        '</tr>');
+                                }
+                                break;
+                            }
+                            case ('railway') : {
+                                if (name[1] === 'railway') {
+                                    $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
+                                        '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                        '<td><span>' + value.topic + '</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                        '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                        '</td>\n' +
+                                        '</tr>');
+                                }
+                                break;
+                            }
+                            default : {
+                                $('#table-builder-other').append('<tr class="' + value.category + '">\n' +
+                                    '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                    '<td><span>' + value.topic + '</span><br>\n' +
+                                    '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                    '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                    '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                    '</td>\n' +
+                                    '</tr>');
+                                break;
+                            }
+                        }
+                    })
+                }
+
+
+                if (name[1] === 'airport') {
+                    $(".tab-living").hide();
+                    $(".tab-business").hide();
+                    $(".tab-other").hide();
+                    $(".tab-special").show();
+                    $('.tab-special a').click();
+                } else if (name[1] === 'sea') {
+                    $(".tab-living").hide();
+                    $(".tab-business").hide();
+                    $(".tab-other").hide();
+                    $(".tab-special").show();
+                    $('.tab-special a').click();
+                } else if (name[1] === 'factory') {
+                    $(".tab-living").hide();
+                    $(".tab-business").hide();
+                    $(".tab-other").hide();
+                    $(".tab-special").show();
+                    $('.tab-special a').click();
+                } else if (name[1] === 'railway') {
+                    $(".tab-living").hide();
+                    $(".tab-business").hide();
+                    $(".tab-other").hide();
+                    $(".tab-special").show();
+                    $('.tab-special a').click();
+                } else {
+                    $(".tab-living").show();
+                    $(".tab-business").show();
+                    $(".tab-other").show();
+                    $(".tab-special").hide();
+                    $('.tab-living a').click();
+                }
+
+                $('.menu-builder').modal('show');
+
+            }
+        }
+
+    }
+
+}
+
+function onDocumentTouchEnd ( e ) {
+    event = e.changedTouches[0];
+    var rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ( ( event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = - ( ( event.clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster.setFromCamera( mouse, camera );
+    var intersects = raycaster.intersectObjects( scene.children, true );
+
+    for ( var i = 0; i < intersects.length; i++ ) {
+
+        if (intersects[ i ].object.name !== "") {
+            let name = intersects[ i ].object.name.split('_');
+
+            if (name[0] === 'tobuild') {
+                console.log(name, intersects[i].object);
+                $('.menu-builder').attr('data-plane', intersects[i].object.name);
+                intersects[i].object.geometry.computeBoundingBox();
+
+                var boundingBox = intersects[i].object.geometry.boundingBox;
+
+                var position = new THREE.Vector3();
+                position.subVectors(boundingBox.max, boundingBox.min);
+                //position.multiplyScalar( 1.5 );
+                position.add(boundingBox.min);
+
+                position.applyMatrix4(intersects[i].object.matrixWorld);
+
+                //alert(position.x + ',' + position.y + ',' + position.z);
+
+
+                $('.menu-builder').attr('data-x', position.x);
+                $('.menu-builder').attr('data-y', position.y);
+                $('.menu-builder').attr('data-z', position.z);
+
+
+                if (_.size(items.basic) !== 0) {
+                    $('#table-builder-living tr').remove();
+                    $('#table-builder-business tr').remove();
+                    $('#table-builder-other tr').remove();
+                    $('#table-builder-special tr').remove();
+
+
+                    _.forEach(items.basic, function (value, key) {
+                        switch (value.category) {
+                            case ('living') : {
+                                $('#table-builder-living').append('<tr class="' + value.category + '">\n' +
+                                    '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                    '<td><span>' + value.topic + '</span><br>\n' +
+                                    '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                    '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                    '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                    '</td>\n' +
+                                    '</tr>');
+                                break;
+                            }
+                            case ('business') : {
+                                $('#table-builder-business').append('<tr class="' + value.category + '">\n' +
+                                    '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                    '<td><span>' + value.topic + '</span><br>\n' +
+                                    '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                    '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                    '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                    '</td>\n' +
+                                    '</tr>');
+                                break;
+                            }
+                            case ('airport') : {
+                                if (name[1] === 'airport') {
+                                    $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
+                                        '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                        '<td><span>' + value.topic + '</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                        '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                        '</td>\n' +
+                                        '</tr>');
+                                }
+                                break;
+                            }
+                            case ('sea') : {
+                                if (name[1] === 'sea') {
+                                    $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
+                                        '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                        '<td><span>' + value.topic + '</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                        '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                        '</td>\n' +
+                                        '</tr>');
+                                }
+                                break;
+                            }
+                            case ('factory') : {
+                                if (name[1] === 'factory') {
+                                    $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
+                                        '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                        '<td><span>' + value.topic + '</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                        '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                        '</td>\n' +
+                                        '</tr>');
+                                }
+                                break;
+                            }
+                            case ('railway') : {
+                                if (name[1] === 'railway') {
+                                    $('#table-builder-special').append('<tr class="' + value.category + '">\n' +
+                                        '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                        '<td><span>' + value.topic + '</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                        '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                        '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                        '</td>\n' +
+                                        '</tr>');
+                                }
+                                break;
+                            }
+                            default : {
+                                $('#table-builder-other').append('<tr class="' + value.category + '">\n' +
+                                    '<td><img class="" style="width: 80px; height: auto" src="' + value.icon + '" alt=""/></td>\n' +
+                                    '<td><span>' + value.topic + '</span><br>\n' +
+                                    '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_coins.svg" alt=""/>+' + value.increment_money + '/день</span><br>\n' +
+                                    '<span><img style="width: 25px; height: auto" class="pr-2" src="images/svg/svg_laughter.svg" alt=""/>+' + value.increment_people + '/день</span><br>\n' +
+                                    '<button class="btn action-2 xsm shadow text-center gradient-loader-blue" onclick=build_item("' + key + '","basic")>Построить за '+value.price+'</button>\n' +
+                                    '</td>\n' +
+                                    '</tr>');
+                                break;
+                            }
+                        }
+                    })
+                }
+
+
+                if (name[1] === 'airport') {
+                    $(".tab-living").hide();
+                    $(".tab-business").hide();
+                    $(".tab-other").hide();
+                    $(".tab-special").show();
+                    $('.tab-special a').click();
+                } else if (name[1] === 'sea') {
+                    $(".tab-living").hide();
+                    $(".tab-business").hide();
+                    $(".tab-other").hide();
+                    $(".tab-special").show();
+                    $('.tab-special a').click();
+                } else if (name[1] === 'factory') {
+                    $(".tab-living").hide();
+                    $(".tab-business").hide();
+                    $(".tab-other").hide();
+                    $(".tab-special").show();
+                    $('.tab-special a').click();
+                } else if (name[1] === 'railway') {
+                    $(".tab-living").hide();
+                    $(".tab-business").hide();
+                    $(".tab-other").hide();
+                    $(".tab-special").show();
+                    $('.tab-special a').click();
+                } else {
+                    $(".tab-living").show();
+                    $(".tab-business").show();
+                    $(".tab-other").show();
+                    $(".tab-special").hide();
+                    $('.tab-living a').click();
+                }
+
+                $('.menu-builder').modal('show');
+
+            }
+        }
+
+    }
+
+}
+
+
+
+function onDocumentMouseMove( event ) {
+
+    event.preventDefault();
+
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+    raycaster.setFromCamera( mouse, camera );
+
+}
+
+function onDocumentTouchMove( event ) {
+
+    event.preventDefault();
+
+    event = event.changedTouches[0];
+    var rect = renderer.domElement.getBoundingClientRect();
+    mouse.x = ( ( event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = - ( ( event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    raycaster.setFromCamera( mouse, camera );
+
+}
 
 function update_animation() {
 
