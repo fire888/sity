@@ -1,0 +1,12 @@
+[
+  {
+    "name" : "URBAN2.3",
+    "path" : "./urbancity/custom/models/scene/",
+    "description" : "Empty city",
+    "animations" : [
+      {
+        "name" : "transport"
+      }
+    ]
+  }
+]

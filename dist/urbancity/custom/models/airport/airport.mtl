@@ -1,0 +1,46 @@
+# Blender MTL File: 'URBAN2.3.blend'
+# Material Count: 4
+
+newmtl Building_low_06.001
+Ns 5.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.588000 0.588000 0.588000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd ../../Textures/City/Building_low_06DiffuseMap.jpg
+
+newmtl House_16
+Ns 5.000000
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd ../../Textures/City/House16_Texture.jpg
+
+newmtl Palitra
+Ns 5.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.828358 0.828358 0.828358
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd ../../Textures/City/palitra.png
+
+newmtl airportroad
+Ns 5.325443
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd ../../Textures/City/airportroad.png

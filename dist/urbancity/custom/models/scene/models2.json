@@ -1,0 +1,20 @@
+[
+  {
+    "name" : "ground",
+    "path" : "./urbancity/custom/models/scene/",
+    "description" : "Empty city",
+    "animations" : [
+      {
+        "name" : "transport"
+      }
+    ]
+  },
+  {
+    "name" : "tobuild",
+    "path" : "./urbancity/custom/models/scene/",
+    "description" : "City planes",
+    "animations" : [
+
+    ]
+  }
+]

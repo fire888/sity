@@ -1,0 +1,24 @@
+# Blender MTL File: 'URBAN2.5.blend'
+# Material Count: 2
+
+newmtl tobuild
+Ns 0.000000
+Ka 0.166667 0.166667 0.166667
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd ../../Textures/City/tobuild.png
+
+newmtl tobuild_red
+Ns 0.000000
+Ka 0.166667 0.166667 0.166667
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd ../../Textures/City/tobuild_red.png

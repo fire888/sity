@@ -1,0 +1,66 @@
+.nav {
+    font-size: 14px;
+    background: white;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    padding-top: 0rem;
+    width: 100vw;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: row nowrap;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    flex: 1 1 25%;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    padding: .5rem 1rem;
+
+    white-space: nowrap;
+    transition: all 500ms ease-in-out;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+}
+.nav-item .title {
+    display: inline-block;
+    color: transparent;
+    vertical-align: center;
+}
+
+.nav-item.active {
+    flex: 0.000000001 0.00000001 180px;
+}
+.nav-item.active .title {
+    color: inherit;
+}
+
+.nav-item[data-color="#0d6aed"].active {
+    color: #fff;
+    fill: #fff !important;
+    background: #0d6aed;
+}
+
+.nav-item[data-color="#0d6aed"].active {
+    color: #fff;
+    fill: #fff !important;
+    background: #0d6aed;
+}
+
+.nav-item[data-color="#0d6aed"].active {
+    color: #fff;
+    fill: #fff !important;
+    background: #0d6aed;
+}
+
+.nav-item[data-color="#0d6aed"].active {
+    color: #fff;
+    fill: #fff !important;
+    background: #0d6aed;
+}
+
+*[class^="icon-"] {
+    height: 29px;
+    width: 29px;
+}

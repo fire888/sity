@@ -1,0 +1,834 @@
+.bg-urbancity {
+    background: linear-gradient(180deg, #0d6aed 0%, #2F1893 100%); !important;
+}
+
+.bg-urbancity20 {
+    background-image: url("../images/jumbo.png");
+    background-size: 100%;
+    background-position: top;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.gradient-loader {
+    background: linear-gradient(180deg, #19BB4F 0%, #199e4c 100%);
+    box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.15);
+}
+
+.gradient-loader-blue {
+    background: linear-gradient(180deg, #482bf8 0%, #3e24bf 100%);
+    box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.15);
+}
+
+.alwasyscrollable {
+    overflow: -moz-scrollbars-vertical;
+    overflow-y: scroll;
+    height:150px;
+}
+
+.gradient-loader-gray {
+    background: linear-gradient(180deg, #a8a8a8 0%, #777777 100%);
+    color: white;
+    box-shadow: 0px 16px 32px rgba(0, 0, 0, 0.15);
+}
+
+.bg-urbancity-2 {
+    background: linear-gradient(90deg, #00B2B2 6.89%, #2FB7A8 23.38%, #54BBA1 46.64%, #38B17F 69.05%, #019C3D 88.07%);
+}
+shadow {
+    box-shadow: 0px 16px 16px rgba(0, 0, 0, 0.16);
+}
+
+.modal-content  {
+    -webkit-border-radius: 20px !important;
+    -moz-border-radius: 20px !important;
+    border-radius: 20px !important;
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+}
+
+
+h1,h2 {
+    white-space: pre-line;
+}
+
+span {
+    white-space: pre-line;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+#myProgress {
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #d3d3d3;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+#myBar {
+    height: 10px;
+    border-radius: 5px;
+    background: linear-gradient(180deg, #19BB4F 0%, #199e4c 100%);
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+#myBar div {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+/* navbar
+
+ */
+.tabbar {
+    --primary: #0d6aed;
+    --background: #fff;
+    --icon-active: #fff;
+    --x: -100px;
+    width: 100%;
+    margin: 0;
+    padding: 0 16px;
+    border-radius: 28px 28px 0px 0px;
+    list-style: none;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    background: var(--background);
+}
+.tabbar:before, .tabbar:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    border-radius: 50%;
+    -webkit-transform: translateX(var(--x));
+    transform: translateX(var(--x));
+}
+.tabbar:before {
+    width: 64px;
+    height: 64px;
+    margin-left: -32px;
+    background: var(--primary);
+    top: -16px;
+    z-index: 1;
+
+}
+.tabbar:after {
+    width: 84px;
+    height: 84px;
+    margin-left: -42px;
+    background: rgba(255, 255, 255, 0.08);
+    top: -26px;
+}
+.tabbar li a {
+    display: block;
+    padding: 24px 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: -webkit-transform .2s ease;
+    transition: -webkit-transform .2s ease;
+    transition: transform .2s ease;
+    transition: transform .2s ease, -webkit-transform .2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+.tabbar li a div {
+    --y: 0;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateY(var(--y));
+    transform: translateY(var(--y));
+}
+.tabbar li a div svg {
+    display: block;
+    width: 32px;
+    height: 32px;
+    fill: rgba(255, 255, 255, 0);
+    stroke-width: 0px;
+    stroke: var(--primary);
+}
+.tabbar li a div:before {
+    --s-x: 1;
+    --s-y: 1;
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 1;
+    -webkit-transform: scaleX(var(--s-x)) scaleY(var(--s-y));
+    transform: scaleX(var(--s-x)) scaleY(var(--s-y));
+}
+
+.tabbar li a.box div em {
+    --s-x: 1;
+    --s-y: 1;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+}
+.tabbar li a.box div em:before, .tabbar li a.box div em:after {
+    --r: 0deg;
+    content: '';
+    display: block;
+    height: 2px;
+    border-radius: 1px;
+    width: 13px;
+    background: var(--primary);
+    position: absolute;
+    bottom: -1px;
+    -webkit-transform: rotateZ(var(--r)) translateY(1px) scaleY(0.75);
+    transform: rotateZ(var(--r)) translateY(1px) scaleY(0.75);
+}
+.tabbar li a.box div em:before {
+    --r: 30deg;
+    right: -1px;
+    -webkit-transform-origin: 100% 50%;
+    transform-origin: 100% 50%;
+}
+.tabbar li a.box div em:after {
+    --r: -30deg;
+    left: -1px;
+    -webkit-transform-origin: 0% 50%;
+    transform-origin: 0% 50%;
+}
+
+
+.tabbar li a.calendar div em {
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 50%;
+}
+.tabbar li a.calendar div em:before, .tabbar li a.calendar div em:after {
+    content: '';
+    display: block;
+    width: 2px;
+    border-radius: 1px;
+    height: 7px;
+    background: var(--primary);
+    position: absolute;
+    top: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: scaleX(0.75);
+    transform: scaleX(0.75);
+    -webkit-transition: background .4s ease;
+    transition: background .4s ease;
+}
+.tabbar li a.calendar div em:before {
+    right: -6px;
+}
+.tabbar li a.calendar div em:after {
+    left: -6px;
+}
+.tabbar li.active a div {
+    --y: -24px;
+}
+.tabbar li.active a div svg {
+    fill: var(--icon-active);
+}
+.tabbar li.active a.calendar em:before, .tabbar li.active a.calendar em:after {
+    background: var(--icon-active);
+}
+.tabbar li:not(.active) a div {
+    -webkit-transition: -webkit-transform .4s ease;
+    transition: -webkit-transform .4s ease;
+    transition: transform .4s ease;
+    transition: transform .4s ease, -webkit-transform .4s ease;
+}
+.tabbar li:not(.active) a div svg {
+    -webkit-transition: fill .4s ease;
+    transition: fill .4s ease;
+}
+.tabbar li:not(.active) a:active {
+    -webkit-transform: scale(0.92);
+    transform: scale(0.92);
+}
+.tabbar li.move a div {
+    -webkit-animation: icon 1.2s linear forwards;
+    animation: icon 1.2s linear forwards;
+}
+.tabbar li.move a div svg {
+    -webkit-animation: svg 1.2s linear forwards;
+    animation: svg 1.2s linear forwards;
+}
+.tabbar li.move a.box div:before {
+    -webkit-animation: element-far 1.2s linear forwards;
+    animation: element-far 1.2s linear forwards;
+}
+.tabbar li.move a.box div em {
+    -webkit-animation: element-close 1.2s linear forwards;
+    animation: element-close 1.2s linear forwards;
+}
+.tabbar li.move a.home div:before {
+    -webkit-animation: element-close 1.2s linear forwards;
+    animation: element-close 1.2s linear forwards;
+}
+.tabbar li.move a.calendar div:before {
+    -webkit-animation: element-close 1.2s linear forwards;
+    animation: element-close 1.2s linear forwards;
+}
+.tabbar li.move a.calendar div em {
+    -webkit-animation: calendar-2 1.2s linear forwards;
+    animation: calendar-2 1.2s linear forwards;
+}
+.tabbar li.move a.calendar div em:before, .tabbar li.move a.calendar div em:after {
+    -webkit-animation: calendar-3 1.2s linear forwards;
+    animation: calendar-3 1.2s linear forwards;
+}
+.tabbar.move:before {
+    -webkit-animation: move 1.2s linear forwards;
+    animation: move 1.2s linear forwards;
+}
+.tabbar.move:after {
+    -webkit-animation: move-after 1.2s linear forwards;
+    animation: move-after 1.2s linear forwards;
+}
+
+.frame {
+    width: 100%;
+    height: 240px;
+    border-radius: 0px 0px 0px 0px;
+    overflow: hidden;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: end;
+    align-items: flex-end;
+}
+
+@-webkit-keyframes move {
+    10%,
+    15% {
+        -webkit-transform: translate(var(--x), 84px);
+        transform: translate(var(--x), 84px);
+    }
+    30% {
+        -webkit-transform: translate(var(--x-n), 84px);
+        transform: translate(var(--x-n), 84px);
+    }
+    42%,
+    70% {
+        -webkit-transform: translate(var(--x-n), -16px);
+        transform: translate(var(--x-n), -16px);
+    }
+    85% {
+        -webkit-transform: translate(var(--x-n), 4px);
+        transform: translate(var(--x-n), 4px);
+    }
+    100% {
+        -webkit-transform: translate(var(--x-n), 0);
+        transform: translate(var(--x-n), 0);
+    }
+}
+
+@keyframes move {
+    10%,
+    15% {
+        -webkit-transform: translate(var(--x), 84px);
+        transform: translate(var(--x), 84px);
+    }
+    30% {
+        -webkit-transform: translate(var(--x-n), 84px);
+        transform: translate(var(--x-n), 84px);
+    }
+    42%,
+    70% {
+        -webkit-transform: translate(var(--x-n), -16px);
+        transform: translate(var(--x-n), -16px);
+    }
+    85% {
+        -webkit-transform: translate(var(--x-n), 4px);
+        transform: translate(var(--x-n), 4px);
+    }
+    100% {
+        -webkit-transform: translate(var(--x-n), 0);
+        transform: translate(var(--x-n), 0);
+    }
+}
+@-webkit-keyframes move-after {
+    10%,
+    15% {
+        -webkit-transform: translate(var(--x), 84px) scale(0.82);
+        transform: translate(var(--x), 84px) scale(0.82);
+    }
+    30% {
+        -webkit-transform: translate(var(--x-n), 84px) scale(0.82);
+        transform: translate(var(--x-n), 84px) scale(0.82);
+    }
+    42% {
+        -webkit-transform: translate(var(--x-n), -16px) scale(0.82);
+        transform: translate(var(--x-n), -16px) scale(0.82);
+    }
+    60% {
+        -webkit-transform: translate(var(--x-n), -16px) scale(1);
+        transform: translate(var(--x-n), -16px) scale(1);
+    }
+    70% {
+        -webkit-transform: translate(var(--x-n), -16px) scale(1);
+        transform: translate(var(--x-n), -16px) scale(1);
+    }
+    85% {
+        -webkit-transform: translate(var(--x-n), 4px) scale(1);
+        transform: translate(var(--x-n), 4px) scale(1);
+    }
+    100% {
+        -webkit-transform: translate(var(--x-n), 0) scale(1);
+        transform: translate(var(--x-n), 0) scale(1);
+    }
+}
+@keyframes move-after {
+    10%,
+    15% {
+        -webkit-transform: translate(var(--x), 84px) scale(0.82);
+        transform: translate(var(--x), 84px) scale(0.82);
+    }
+    30% {
+        -webkit-transform: translate(var(--x-n), 84px) scale(0.82);
+        transform: translate(var(--x-n), 84px) scale(0.82);
+    }
+    42% {
+        -webkit-transform: translate(var(--x-n), -16px) scale(0.82);
+        transform: translate(var(--x-n), -16px) scale(0.82);
+    }
+    60% {
+        -webkit-transform: translate(var(--x-n), -16px) scale(1);
+        transform: translate(var(--x-n), -16px) scale(1);
+    }
+    70% {
+        -webkit-transform: translate(var(--x-n), -16px) scale(1);
+        transform: translate(var(--x-n), -16px) scale(1);
+    }
+    85% {
+        -webkit-transform: translate(var(--x-n), 4px) scale(1);
+        transform: translate(var(--x-n), 4px) scale(1);
+    }
+    100% {
+        -webkit-transform: translate(var(--x-n), 0) scale(1);
+        transform: translate(var(--x-n), 0) scale(1);
+    }
+}
+@-webkit-keyframes icon {
+    30% {
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+    }
+    40%,
+    70% {
+        -webkit-transform: translateY(-100px);
+        transform: translateY(-100px);
+    }
+    85% {
+        -webkit-transform: translateY(-20px);
+        transform: translateY(-20px);
+    }
+    100% {
+        -webkit-transform: translateY(-24px);
+        transform: translateY(-24px);
+    }
+}
+@keyframes icon {
+    30% {
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+    }
+    40%,
+    70% {
+        -webkit-transform: translateY(-100px);
+        transform: translateY(-100px);
+    }
+    85% {
+        -webkit-transform: translateY(-20px);
+        transform: translateY(-20px);
+    }
+    100% {
+        -webkit-transform: translateY(-24px);
+        transform: translateY(-24px);
+    }
+}
+@-webkit-keyframes svg {
+    30% {
+        fill: rgba(255, 255, 255, 0);
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    40% {
+        fill: rgba(255, 255, 255, 0);
+        -webkit-transform: translateY(-36px);
+        transform: translateY(-36px);
+    }
+    70% {
+        fill: rgba(255, 255, 255, 0);
+        -webkit-transform: translateY(-56px);
+        transform: translateY(-56px);
+    }
+    80% {
+        fill: rgba(255, 255, 255, 0);
+    }
+    85% {
+        fill: var(--icon-active);
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    100% {
+        fill: var(--icon-active);
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+@keyframes svg {
+    30% {
+        fill: rgba(255, 255, 255, 0);
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    40% {
+        fill: rgba(255, 255, 255, 0);
+        -webkit-transform: translateY(-36px);
+        transform: translateY(-36px);
+    }
+    70% {
+        fill: rgba(255, 255, 255, 0);
+        -webkit-transform: translateY(-56px);
+        transform: translateY(-56px);
+    }
+    80% {
+        fill: rgba(255, 255, 255, 0);
+    }
+    85% {
+        fill: var(--icon-active);
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    100% {
+        fill: var(--icon-active);
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+@-webkit-keyframes element-close {
+    30% {
+        -webkit-transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    40% {
+        -webkit-transform: translateY(-16px) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(-16px) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    70% {
+        -webkit-transform: translateY(-28px) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(-28px) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    85% {
+        -webkit-transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    100% {
+        -webkit-transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+}
+@keyframes element-close {
+    30% {
+        -webkit-transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    40% {
+        -webkit-transform: translateY(-16px) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(-16px) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    70% {
+        -webkit-transform: translateY(-28px) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(-28px) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    85% {
+        -webkit-transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    100% {
+        -webkit-transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+}
+@-webkit-keyframes element-far {
+    30% {
+        -webkit-transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    40% {
+        -webkit-transform: translateY(-4px) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(-4px) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    70% {
+        -webkit-transform: translateY(-12px) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(-12px) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    85% {
+        -webkit-transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    100% {
+        -webkit-transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+}
+@keyframes element-far {
+    30% {
+        -webkit-transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    40% {
+        -webkit-transform: translateY(-4px) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(-4px) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    70% {
+        -webkit-transform: translateY(-12px) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(-12px) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    85% {
+        -webkit-transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+    100% {
+        -webkit-transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+        transform: translateY(0) scaleX(var(--s-x)) scaleY(var(--s-y));
+    }
+}
+@-webkit-keyframes calendar-2 {
+    30% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    40% {
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+    }
+    70% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px);
+    }
+    85% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+@keyframes calendar-2 {
+    30% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    40% {
+        -webkit-transform: translateY(0px);
+        transform: translateY(0px);
+    }
+    70% {
+        -webkit-transform: translateY(-8px);
+        transform: translateY(-8px);
+    }
+    85% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+@-webkit-keyframes calendar-3 {
+    75% {
+        background: var(--primary);
+    }
+    80%,
+    100% {
+        background: var(--icon-active);
+    }
+}
+@keyframes calendar-3 {
+    75% {
+        background: var(--primary);
+    }
+    80%,
+    100% {
+        background: var(--icon-active);
+    }
+}
+html {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+}
+
+* {
+    box-sizing: inherit;
+}
+*:before, *:after {
+    box-sizing: inherit;
+}
+
+
+.navigation_mobile.opened {
+    left: 0px;
+    width: 100%;
+}
+
+iframe {
+    width: 100%;
+}
+
+.botui-container{
+    font-size:16px;
+    background-color:#fff;
+    font-family: Myriad Pro
+}
+
+div.has-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    /* fallback */
+    -webkit-line-clamp: 3;
+    /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+
+.botui-actions-container {
+    margin-top: 0px;
+    padding-top: 0px;
+    font-family: Myriad Pro
+}
+
+.botui-actions-buttons-button{
+    font-family: Myriad Pro
+}
+
+.botui-app-container {
+    margin-top: 40px;
+}
+
+.botui-message{
+    text-align: left;
+}
+.botui-message-content {
+    color: #ffffff;
+    background-color: #0d6aed;
+}
+
+.botui-message-content.human {
+    background-color: #0d6aed;
+}
+
+.botui-message-content.html {
+    background-color: white;
+}
+
+.botui-message-content.embed {
+    background-color: white;
+}
+
+.botui-actions-text-input {
+    color: #000000;
+    border-bottom: 1px solid #0d6aed;
+}
+
+.botui-actions-buttons-button {
+    line-height: 1 !important;
+    background-color: #25DAC5;
+}
+
+.botui-message-content-link {
+    color: #25DAC5;
+}
+
+.botui-actions-text-submit{
+    background-color: #0d6aed;
+    border-color: white;
+}
+
+img.profile {
+    width: 250px;
+}
+
+.btn.xsm {
+     height: 25px;
+     line-height: 25px;
+     padding: 0 12px;
+     font-size: 12px;
+ }
+.btn.xsm[class^=border-], .btn.xsm[class*=" border-"] {
+    line-height: 20px;
+}
+
+.btn.intro {
+    height: 25px;
+    line-height: 25px;
+    padding: 0 12px;
+    margin-left: 5px;
+    font-size: 12px;
+    background-color: #0d6aed;
+    color: #fff;
+}
+.btn.intro[class^=border-], .btn.intro[class*=" border-"] {
+    line-height: 20px;
+}
+
+.introjs-tooltiptext {
+    color: #000000;
+}
+
+
+.overlay {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: #4a4a4a;
+    z-index: 9999;
+    opacity: 0.5;
+}
+
+.overlay__inner {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.overlay__content {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.spinner {
+    width: 75px;
+    height: 75px;
+    display: inline-block;
+    border-width: 8px;
+    border-color: rgba(255, 255, 255, 0.05);
+    border-top-color: #fff;
+    animation: spin 1s infinite linear;
+    border-radius: 100%;
+    border-style: solid;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "name" : "ground",
+    "path" : "./urbancity/custom/models/allinone/",
+    "description" : "Ground",
+    "animations" : [
+      {
+        "name" : "transport"
+      }
+    ]
+  },
+  {
+    "name" : "houses",
+    "path" : "./urbancity/custom/models/allinone/",
+    "description" : "Houses"
+  },
+  {
+    "name" : "tobuild",
+    "path" : "./urbancity/custom/models/allinone/",
+    "description" : "Planes"
+  }
+]
