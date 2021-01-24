@@ -2,8 +2,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
-import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader';
+import { AdaptiveToneMappingPass } from 'three/examples/jsm/postprocessing/AdaptiveToneMappingPass';
 
+ 
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader';
+//import { SSAOShader } from 'three/examples/jsm/shaders/SSAOShader';
+import { ConvolutionShader } from "three/examples/jsm/shaders/ConvolutionShader";
 //import { VignetteShader } from 'three/examples/jsm/shaders/VignetteShader'
 import { VignetteShaderCustom } from './shaders/VignetteShaderCustom'
 
@@ -43,8 +47,8 @@ export const createStudio = function () {
     document.getElementById('city').appendChild(renderer.domElement);
 
     const renderPass = new RenderPass( scene, camera )
-    const composer = new EffectComposer( renderer );
-    composer.addPass( renderPass );
+    const composer = new EffectComposer( renderer )
+    composer.addPass( renderPass )
 
     const fxaaPass = new ShaderPass( FXAAShader )
     const pixelRatio = renderer.getPixelRatio();
@@ -55,6 +59,10 @@ export const createStudio = function () {
     const vignettePass = new ShaderPass(VignetteShaderCustom)
     vignettePass.material.uniforms[ 'color' ].value = new THREE.Color("#00FFFF")
     composer.addPass(vignettePass)
+
+
+    //const adddaptivePass = new AdaptiveToneMappingPass()
+    //composer.addPass(adddaptivePass)
 
 
     const controls = new OrbitControls( camera, renderer.domElement );
