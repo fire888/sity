@@ -6,6 +6,9 @@ import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader';
 import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
 import { FilmPass } from 'three/examples/jsm/postprocessing/FilmPass';
 
+//import { VignetteShader } from 'three/examples/jsm/shaders/VignetteShader'
+import { VignetteShaderCustom } from './shaders/VignetteShaderCustom'
+
 
 const CONFIG = {
     fogData: {
@@ -77,26 +80,35 @@ export const createStudio = function () {
     document.getElementById('city').appendChild(renderer.domElement);
 
     const renderPass = new RenderPass( scene, camera )
-    const fxaaPass = new ShaderPass( FXAAShader )
-    const pixelRatio = renderer.getPixelRatio();
-    fxaaPass.material.uniforms[ 'resolution' ].value.x = 1 / ( renderer.domElement.offsetWidth * pixelRatio )
-    fxaaPass.material.uniforms[ 'resolution' ].value.y = 1 / ( renderer.domElement.offsetHeight * pixelRatio )
 
-    const bokehPass = new BokehPass( scene, camera, {
-        focus: 1000,
-        aperture: 0.00001,
-        maxblur: 0.01,
 
-        width: window.innerWidth,
-        height: window.innerHeight,
-    } );
+    //const bokehPass = new BokehPass( scene, camera, {
+    //     focus: 1000,
+    //     aperture: 0.00001,
+    //     maxblur: 0.01,
 
-    const effectFilm = new FilmPass( 0.35, 0.75, 2048, 0 );
+    //     width: window.innerWidth,
+    //     height: window.innerHeight,
+    // } );
+
+    //const effectFilm = new FilmPass( 0.35, 0.75, 2048, 0 );
+
     const composer = new EffectComposer( renderer );
     composer.addPass( renderPass );
-    //composer.addPass( fxaaPass );
+
+    const fxaaPass = new ShaderPass( FXAAShader )
+    const pixelRatio = renderer.getPixelRatio();
+    fxaaPass.material.uniforms[ 'resolution' ].value.x = 1 / ( window.innerWidth * pixelRatio );
+    fxaaPass.material.uniforms[ 'resolution' ].value.y = 1 / ( window.innerHeight * pixelRatio );
+    composer.addPass( fxaaPass );
+
+    const vignettePass = new ShaderPass(VignetteShaderCustom)
+    vignettePass.material.uniforms[ 'color' ].value = new THREE.Color("#00FFFF")
+    composer.addPass(vignettePass)
+
+
     //composer.addPass( effectFilm );
-    composer.addPass( bokehPass );
+    //composer.addPass( bokehPass );
 
 
     const controls = new OrbitControls( camera, renderer.domElement );
@@ -128,9 +140,8 @@ export const createStudio = function () {
             composer.setSize( window.innerWidth, window.innerHeight );
 
             const pixelRatio = renderer.getPixelRatio();
-
-            //fxaaPass.material.uniforms[ 'resolution' ].value.x = 1 / ( window.innerWidth * pixelRatio );
-            //fxaaPass.material.uniforms[ 'resolution' ].value.y = 1 / ( window.innerHeight * pixelRatio );
+            fxaaPass.material.uniforms[ 'resolution' ].value.x = 1 / ( window.innerWidth * pixelRatio );
+            fxaaPass.material.uniforms[ 'resolution' ].value.y = 1 / ( window.innerHeight * pixelRatio );
         },
     }
 }
