@@ -2,7 +2,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader'
 
-import 'three/examples/js/loaders/DRACOLoader'
+//import 'three/examples/js/loaders/DRACOLoader'
 
 import { load_urbancity } from './loadUrban'
 import { createStudio } from './createStudio'
@@ -271,8 +271,8 @@ function init(){
 
     };
 
-    THREE.DRACOLoader.setDecoderPath( 'js/threejs/' );
-    loader.setDRACOLoader( new THREE.DRACOLoader() )
+    //THREE.DRACOLoader.setDecoderPath( 'js/threejs/' );
+    //loader.setDRACOLoader( new THREE.DRACOLoader() )
 }
 
 

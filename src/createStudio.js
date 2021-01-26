@@ -2,14 +2,13 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
-import { AdaptiveToneMappingPass } from 'three/examples/jsm/postprocessing/AdaptiveToneMappingPass';
 
  
-import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader';
-//import { SSAOShader } from 'three/examples/jsm/shaders/SSAOShader';
-import { ConvolutionShader } from "three/examples/jsm/shaders/ConvolutionShader";
-//import { VignetteShader } from 'three/examples/jsm/shaders/VignetteShader'
+import { NoiseShader } from './shaders/NoiseShader' 
 import { VignetteShaderCustom } from './shaders/VignetteShaderCustom'
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader';
+
+
 
 
 
@@ -60,9 +59,10 @@ export const createStudio = function () {
     vignettePass.material.uniforms[ 'color' ].value = new THREE.Color("#00FFFF")
     composer.addPass(vignettePass)
 
+    const noisePass = new ShaderPass(NoiseShader)
+    noisePass.material.uniforms['iTime'].value = Date.now() * 0.000000001
+    composer.addPass(noisePass)
 
-    //const adddaptivePass = new AdaptiveToneMappingPass()
-    //composer.addPass(adddaptivePass)
 
 
     const controls = new OrbitControls( camera, renderer.domElement );
@@ -74,7 +74,6 @@ export const createStudio = function () {
     controls.autoRotate = true;
     controls.autoRotateSpeed = 1;
     controls.target.set( 500, 100, 600 );
-    ///controls.target.set( 0, 0, 0 );
     controls.update();
 
 
@@ -84,7 +83,8 @@ export const createStudio = function () {
         controls,
         renderer,
         renderFrame () {
-            //renderer.render( scene, camera );
+            // renderer.render( scene, camera );
+            noisePass.material.uniforms['iTime'].value += 0.01 
             composer.render();
         },
         resize () {
@@ -99,3 +99,4 @@ export const createStudio = function () {
         },
     }
 }
+
