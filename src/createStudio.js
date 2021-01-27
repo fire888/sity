@@ -53,7 +53,6 @@ export const createStudio = function () {
     composer.addPass( fxaaPass );
 
     const vignettePass = new ShaderPass(VignetteShaderCustom)
-    vignettePass.material.uniforms[ 'color' ].value = new THREE.Color("#00FFFF")
     vignettePass.material.uniforms['iTime'].value = Date.now() * 0.000000001
     composer.addPass(vignettePass)
 
